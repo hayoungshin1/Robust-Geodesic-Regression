@@ -1,4 +1,3 @@
-
 ## finding c for Huber,Tukey, and L_1 efficiency
 
 Q <- function(s,x) {
