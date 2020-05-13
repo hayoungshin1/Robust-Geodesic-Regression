@@ -195,8 +195,6 @@ alg <- function(p,v,x,y,m_estimator) {
   old_p[1] <- -1
   old_v <- matrix(0L,nrow=embed,ncol=dim(x)[2])
   old_v[embed,] <- 100
-  ##copy_old_p <- old_p
-  ##copy_old_v <- old_v
   count <- 0
   alt_count <- 0
   if ((m_estimator[[1]] == 'huber') | (m_estimator[[1]] == 'tukey')) { 
@@ -234,24 +232,16 @@ alg <- function(p,v,x,y,m_estimator) {
     }
     if (loss_sum(current_p,current_v,x,y,m_estimator) >= loss_sum(new_p,new_v,x,y,m_estimator)) {
       alt_count <- 0
-      ##copy_old_p <- old_p
-      ##copy_old_v <- old_v
       old_p <- current_p
       old_v <- current_v
       current_p <- new_p
       current_v <- new_v
       if ((m_estimator[[1]] == 'huber') | (m_estimator[[1]] == 'tukey')) {
-        ##xi <- (2*Pinv(dim/2,0.5*P(dim/2,0.5*(pi/sigma)^2)))^0.5
         current_shifts <- current_v%*%t(x)
         for (i in 1:dim(y)[2]) {
           deviations[i] <- dist(expo(current_p,current_shifts[,i]),y[,i])
         }
         mad <- median(deviations)
-        ##old_c <- c
-        ##c <- trunc_nr(old_c,dim,pi/sigma,m_estimator[[1]])
-        ##if (c == 'fail') {
-        ##  c <- old_c
-        ##}
         sigma <- mad/xi
         cutoff <- c*sigma
         m_estimator[[2]] <- cutoff
