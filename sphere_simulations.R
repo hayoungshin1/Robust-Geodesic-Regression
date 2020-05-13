@@ -2,6 +2,26 @@ library(mvtnorm)
 library(zipfR)
 library(MASS)
 
+## initializations
+
+dim <- 2
+embed <- dim+1
+L <- 1024
+l <- 1
+max <- 8
+size <- 7
+estimator <- 'huber'
+
+true_p <- integer(embed)
+true_p[1] <- 1
+true_v <- matrix(0L,nrow=embed,ncol=l)
+true_v[2,1] <- pi/4
+true_v[embed,2] <- -pi/6
+sigma <- pi/8
+t_sigma <- pi/16
+mixed_sigma_1 <- pi/6
+mixed_sigma_2 <- pi/24
+
 # data
 
 set.seed(234234234)
