@@ -103,11 +103,9 @@ for (k in 2:max) {
     all_p[,j] <- ans[[1]]
     t_all_p[,j] <- t_ans[[1]]
     mixed_all_p[,j] <- mixed_ans[[1]]
-    for (h in 1:l) {
-      all_v[,h,j] <- ans[[2]]
-      t_all_v[,h,j] <- t_ans[[2]]
-      mixed_all_v[,h,j] <- mixed_ans[[2]]
-    }
+    all_v[,,j] <- ans[[2]]
+    t_all_v[,,j] <- t_ans[[2]]
+    mixed_all_v[,,j] <- mixed_ans[[2]]
     weird <- weird + (ans[[3]]==2000)
     strange <- strange + (ans[[4]]==100000)
     t_weird <- t_weird + (t_ans[[3]]==2000)
