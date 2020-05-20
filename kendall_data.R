@@ -37,7 +37,7 @@ for (i in 1:length(ages)) { ## remove scaling
   y_data[,,i] <- y_data[,,i]/((sum(y_data[,,i]*y_data[,,i]))^0.5)
 }
 
-#y_data[2,,(length(ages)-19):length(ages)] <- -y_data[2,,(length(ages)-19):length(ages)] ### fake points
+#y_data[2,,(length(ages)-19):length(ages)] <- -y_data[2,,(length(ages)-19):length(ages)] ### tampered data
 
 y_data <- y_data[1,,]+y_data[2,,]*(0+1i)
 init_p <- k_mean(y_data)
