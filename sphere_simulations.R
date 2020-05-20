@@ -1,18 +1,22 @@
 library(mvtnorm)
-#library(zipfR)
 library(MASS)
 
 ## initializations
 
 set.seed(234234)
 
-dim <- 3
+dim <- 2
+#dim <- 3
 embed <- dim+1
 L <- 1024
-n <- 2
+n <- 1
+#n <- 2
 max <- 8
 size <- 7
-estimator <- 'tukey'
+estimator <- 'l2'
+#estimator <- 'l1'
+#estimator <- 'huber'
+#estimator <- 'tukey'
 
 true_p <- integer(embed)
 true_p[1] <- 1
