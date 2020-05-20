@@ -22,7 +22,7 @@ ADF_y_data <- readMat('../downloads/ADNI_RMRSS/data/ADLdataF.mat')$ADLdataF
 ages <- ADF_x_data[,9]
 
 x_data <- t(t(ages))
-x_data <- x_data-mean(x_data) ## centering
+x_data <- x_data-mean(x_data) ## center x
 
 y_data <- ADF_y_data
 y_data <- aperm(y_data, c(2,1,3))
