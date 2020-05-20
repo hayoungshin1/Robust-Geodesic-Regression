@@ -123,3 +123,16 @@ for (k in 2:max) {
 }
 
 v_variance <- v_variance/L
+
+
+p_variance
+t(v_variance)
+
+graph_p
+t(graph_v)
+
+t_graph_p
+t(t_graph_v)
+
+mixed_graph_p
+t(mixed_graph_v)
