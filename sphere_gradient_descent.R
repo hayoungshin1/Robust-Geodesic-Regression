@@ -65,13 +65,13 @@ rho <- function(x,m_estimator) {
   } else if (m_estimator[[1]] == 'l1') {
     result <- abs(x)
   } else if (m_estimator[[1]] == 'huber') {
-    if (abs(x) <= m_estimator[[2]]) {
+    if (abs(x) < m_estimator[[2]]) {
       result <- 0.5*x^2
     } else {
       result <- m_estimator[[2]]*abs(x)-0.5*m_estimator[[2]]^2
     }
   } else if (m_estimator[[1]] == 'tukey') {
-    if (abs(x) <= m_estimator[[2]]) {
+    if (abs(x) < m_estimator[[2]]) {
       result <- ((m_estimator[[2]]^2)/6)*(1-(1-(x/m_estimator[[2]])^2)^3)
     } else {
       result <- (m_estimator[[2]]^2)/6
@@ -86,13 +86,13 @@ rho_prime <- function(x,m_estimator) {
   } else if (m_estimator[[1]] == 'l1') {
     result <- sign(x)
   } else if (m_estimator[[1]] == 'huber') {
-    if (abs(x) <= m_estimator[[2]]) {
+    if (abs(x) < m_estimator[[2]]) {
       result <- x
     } else {
       result <- m_estimator[[2]]*sign(x)
     }
   } else if (m_estimator[[1]] == 'tukey') {
-    if (abs(x) <= m_estimator[[2]]) {
+    if (abs(x) < m_estimator[[2]]) {
       result <- x*((1-(x/m_estimator[[2]])^2)^2)*sign(x)
     } else {
       result <- 0
@@ -219,12 +219,12 @@ alg <- function(p,v,x,y,m_estimator) {
   }
   step_p <- grad_p(current_p,current_v,x,y,m_estimator)
   step_v <- grad_v(current_p,current_v,x,y,m_estimator)
-  v_diffs <- vector(length=l)
+  v_diffs <- vector(length=dim(x)[2])
   for (h in 1:dim(x)[2]) {
     v_diffs[h] <- norm((pt(old_p,current_p,old_v[,h])-current_v[,h]))
   }
   lambda <- min((1/norm(step_p)),0.1)
-  while ((count==0) | ((count<2000) & (alt_count<100000) & ((dist(old_p,current_p)>0.000000001) | (any(v_diffs>0.000000001))))) { ##& ((dist(copy_old_p,current_p)!=0) | (norm(copy_old_v-current_v)!=0)))) {
+  while ((count==0) | ((count<2000) & (alt_count<100000) & ((dist(old_p,current_p)>0.0000001) | (any(v_diffs>0.0000001))))) { ##& ((dist(copy_old_p,current_p)!=0) | (norm(copy_old_v-current_v)!=0)))) {
     new_p <- expo(current_p, -lambda*step_p)
     new_v <- matrix(,nrow=embed,ncol=dim(x)[2])
     for (h in 1:dim(x)[2]) {
@@ -261,14 +261,5 @@ alg <- function(p,v,x,y,m_estimator) {
   result <- vector("list", length=5)
   result[[1]] <- current_p
   result[[2]] <- current_v
-  result[[3]] <- count
-  result[[4]] <- alt_count
-  result[[5]] <- lambda
-  if ((m_estimator[[1]] == 'huber') | (m_estimator[[1]] == 'tukey')) {
-    result[[6]] <- sigma
-    result[[7]] <- cutoff
-    result[[8]] <- xi
-    result[[9]] <- c
-  }
   return (result)
 }
