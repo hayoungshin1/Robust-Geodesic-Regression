@@ -1,4 +1,4 @@
-## Karcher mean in S^k
+## Karcher mean on S^k
 
 k_mean_loss_sum <- function(p,y) {
   sum <- 0
@@ -22,10 +22,11 @@ k_mean <- function(y) {
   lambda <- 0.1
   step_p <- k_mean_grad(current_p,y)
   count <- 0
-  while ((count==0) | (dist(old_p,current_p)>0.00001)) {
+  while ((count==0) | (dist(old_p,current_p)>0.0000001)) {
     lambda <- min((1/norm(step_p)),lambda)
     new_p <- expo(current_p, -lambda*step_p)
     if (k_mean_loss_sum(current_p,y) >= k_mean_loss_sum(new_p,y)) {
+      ##alt_count <- 0
       old_p <- current_p
       current_p <- new_p
       step_p <- k_mean_grad(current_p,y)
