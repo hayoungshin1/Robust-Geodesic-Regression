@@ -30,8 +30,8 @@ mixed_sigma_2 <- pi/24
 
 # data
 
-graph_p <- integer(max-1)
-graph_v <- matrix(0L,nrow=(max-1),ncol=n)
+graph_p <- integer(max-1) # used to store MSE(p)s
+graph_v <- matrix(0L,nrow=(max-1),ncol=n) # used to store MSE(v^j)s
 
 t_graph_p <- integer(max-1)
 t_graph_v <- matrix(0L,nrow=(max-1),ncol=n)
@@ -39,7 +39,7 @@ t_graph_v <- matrix(0L,nrow=(max-1),ncol=n)
 mixed_graph_p <- integer(max-1)
 mixed_graph_v <- matrix(0L,nrow=(max-1),ncol=n)
 
-p_variance <- integer(max-1)
+p_variance <- integer(max-1) # used to store sample variances.
 v_variance <- matrix(0L,nrow=(max-1),ncol=n)
 
 for (k in 2:max) {
