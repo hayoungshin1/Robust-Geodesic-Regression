@@ -204,7 +204,7 @@ alg <- function(p,v,x,y,m_estimator) {
   current_v <- v
   old_p <- integer(length(p))
   old_p[1] <- 0.5^0.5
-  old_p[embed] <- -(0.5^0.5)
+  old_p[length(p)] <- -(0.5^0.5)
   old_v <- matrix(0L,nrow=length(p),ncol=dim(x)[2])
   count <- 0
   alt_count <- 0
