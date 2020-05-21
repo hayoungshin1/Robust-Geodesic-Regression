@@ -13,7 +13,6 @@ L <- 1024
 n <- 1
 #n <- 2
 max <- 8
-size <- 7
 estimator <- 'l2'
 #estimator <- 'l1'
 #estimator <- 'huber'
