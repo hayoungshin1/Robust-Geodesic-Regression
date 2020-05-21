@@ -9,7 +9,7 @@ k_mean_loss_sum <- function(p,y) {
 }
 
 k_mean_grad <- function(p,y) {
-  sum <- integer(embed)
+  sum <- integer(dim(y)[1])
   for (i in 1:dim(y)[2]) {
     sum <- sum - loga(p,y[,i])
   }
@@ -26,7 +26,6 @@ k_mean <- function(y) {
     lambda <- min((1/norm(step_p)),lambda)
     new_p <- expo(current_p, -lambda*step_p)
     if (k_mean_loss_sum(current_p,y) >= k_mean_loss_sum(new_p,y)) {
-      ##alt_count <- 0
       old_p <- current_p
       current_p <- new_p
       step_p <- k_mean_grad(current_p,y)
