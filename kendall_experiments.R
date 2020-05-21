@@ -1,4 +1,4 @@
-library(mvtnorm)
+library(zipfR)
 library(MASS)
 library(R.matlab)
 library(rmatio)
