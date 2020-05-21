@@ -19,14 +19,14 @@ loga <- function(p1,p2) {
   p1 <- (p1-mean(p1))/norm(p1-mean(p1))
   p2 <- (p2-mean(p2))/norm(p2-mean(p2))
   if (norm(p1-p2) == 0) {
-    result <- integer(embed)
+    result <- integer(length(p1))
   } else {
     a <- sum(p1*Conj(p2))
     theta <- acos(max(min(abs(a),1),-1))
     tang <- (a/abs(a))*p2 - abs(a)*p1
     if (norm(tang) == 0) {
       if ((p1[1] == p2[1])) {
-        result <- integer(embed)
+        result <- integer(length(p1))
       }
     } else {
       result <- theta*(tang/norm(tang))
@@ -103,7 +103,7 @@ rho_prime <- function(x,m_estimator) {
 }
 
 eps <- function(p,v,x,y) {
-  answer <- matrix(,nrow=embed,ncol=dim(y)[2])
+  answer <- matrix(,nrow=length(p),ncol=dim(y)[2])
   shifts <- v%*%t(x)
   for (i in 1:dim(y)[2]) {
     answer[,i] <-loga(expo(p, shifts[,i]), y[,i])
@@ -157,7 +157,7 @@ j_v <- function(p,v1,v2) {
 }
 
 grad_p <- function(p,v,x,y,m_estimator) {
-  sum <- integer(embed)
+  sum <- integer(length(p))
   res <- eps(p,v,x,y)
   if (dim(x)[2]==1) {
     for (i in 1:dim(y)[2]) {
@@ -177,7 +177,7 @@ grad_p <- function(p,v,x,y,m_estimator) {
 }
 
 grad_v <- function(p,v,x,y,m_estimator) {
-  sum <- matrix(0L,nrow=embed,ncol=dim(x)[2])
+  sum <- matrix(0L,nrow=length(p),ncol=dim(x)[2])
   res <- eps(p,v,x,y)
   if (dim(x)[2]==1) {
     for (i in 1:dim(y)[2]) {
@@ -202,10 +202,10 @@ alg <- function(p,v,x,y,m_estimator) {
   p <- (p-mean(p))/norm(p-mean(p))
   current_p <- p
   current_v <- v
-  old_p <- integer(embed)
+  old_p <- integer(length(p))
   old_p[1] <- 0.5^0.5
   old_p[embed] <- -(0.5^0.5)
-  old_v <- matrix(0L,nrow=embed,ncol=dim(x)[2])
+  old_v <- matrix(0L,nrow=length(p),ncol=dim(x)[2])
   count <- 0
   alt_count <- 0
   if ((m_estimator[[1]] == 'huber') | (m_estimator[[1]] == 'tukey')) { 
@@ -217,9 +217,9 @@ alg <- function(p,v,x,y,m_estimator) {
     }
     mad <- median(deviations)
     if (m_estimator[[1]] == 'huber') {
-      c <- nr(2,dim,m_estimator)
+      c <- nr(2,(2*length(p)-4),m_estimator)
     } else if (m_estimator[[1]] == 'tukey') {
-      c <- nr(15,dim,m_estimator)
+      c <- nr(15,(2*length(p)-4),m_estimator)
     }
     sigma <- mad/xi
     cutoff <- c*sigma
@@ -237,7 +237,7 @@ alg <- function(p,v,x,y,m_estimator) {
   lambda <- min((1/norm(step_p)),0.1)
   while ((count==0) | ((count<20000) & (alt_count<100000) & ((dist(old_p,current_p)>0.0000001) | (any(v_diffs>0.0000001))))) { ##& ((dist(copy_old_p,current_p)!=0) | (norm(current_v-copy_old_v)!=0)))) {
     new_p <- expo(current_p, -lambda*step_p)
-    new_v <- matrix(,nrow=embed,ncol=dim(x)[2])
+    new_v <- matrix(,nrow=length(p),ncol=dim(x)[2])
     for (h in 1:dim(x)[2]) {
       new_v[,h] <- pt(current_p,new_p,current_v[,h]-lambda*step_v[,h])
     }
