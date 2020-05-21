@@ -224,7 +224,7 @@ alg <- function(p,v,x,y,m_estimator) {
     v_diffs[h] <- norm((pt(old_p,current_p,old_v[,h])-current_v[,h]))
   }
   lambda <- min((1/norm(step_p)),0.1)
-  while ((count==0) | ((count<2000) & (alt_count<100000) & ((dist(old_p,current_p)>0.0000001) | (any(v_diffs>0.0000001))))) { ##& ((dist(copy_old_p,current_p)!=0) | (norm(copy_old_v-current_v)!=0)))) {
+  while ((count==0) | ((count<2000) & (alt_count<100000) & ((dist(old_p,current_p)>0.0000001) | (any(v_diffs>0.0000001))))) {
     new_p <- expo(current_p, -lambda*step_p)
     new_v <- matrix(,nrow=length(p),ncol=dim(x)[2])
     for (h in 1:dim(x)[2]) {
