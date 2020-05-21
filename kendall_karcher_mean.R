@@ -2,7 +2,7 @@
 
 k_mean_loss_sum <- function(p,y) {
   sum <- 0
-  for (i in 1:dim(y)[2]) {
+  for (i in 1:dim(y)[1]) {
     sum <- sum + 0.5*((dist(p,y[,i]))^2)
   }
   return (sum)
