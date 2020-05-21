@@ -74,8 +74,5 @@ nr <- function(c, k, m_estimator) { #Newton Raphson
       return ('fail')
     }
   }
-  if (m_estimator == 'tukey') {
-    new_c <- abs(new_c)
-  }
   return (new_c)
 }
