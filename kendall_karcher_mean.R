@@ -9,7 +9,7 @@ k_mean_loss_sum <- function(p,y) {
 }
 
 k_mean_grad <- function(p,y) {
-  sum <- integer(dim(y)[1])
+  sum <- integer(length(p))
   for (i in 1:dim(y)[2]) {
     sum <- sum - loga(p,y[,i])
   }
