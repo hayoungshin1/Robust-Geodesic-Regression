@@ -1,30 +1,30 @@
 ## finding c for Huber,Tukey, and L_1 efficiency
 
-Q <- function(s,x) {
-  return (Rgamma(s,x,lower=F))
+Q <- function(s, x) {
+  return (Rgamma(s, x, lower = F))
 }
 
-Qinv <- function(s,x) {
-  return (Rgamma.inv(s,x,lower=F))
+Qinv <- function(s, x) {
+  return (Rgamma.inv(s, x, lower = F))
 }
 
-P <- function(s,x) {
-  return (Rgamma(s,x,lower=T))
+P <- function(s, x) {
+  return (Rgamma(s, x, lower = T))
 }
 
-Pinv <- function(s,x) {
-  return (Rgamma.inv(s,x,lower=T))
+Pinv <- function(s, x) {
+  return (Rgamma.inv(s, x, lower = T))
 }
 
-uppergamma <- function(s,x) {
-  return (Igamma(s,x,lower=F))
+uppergamma <- function(s, x) {
+  return (Igamma(s, x, lower = F))
 }
 
-lowergamma <- function(s,x) {
-  return (Igamma(s,x,lower=T))
+lowergamma <- function(s, x) {
+  return (Igamma(s, x, lower = T))
 }
 
-efficiency <- function (c,k,m_estimator) {
+efficiency <- function (c, k, m_estimator) {
   if (m_estimator == 'huber') {
     numfactor <- (k/2)*lowergamma(k/2,0.5*c^2)+c*(k-1)*(2^-1.5)*uppergamma((k-1)/2,0.5*c^2)
     denfactor <- lowergamma((k+2)/2,0.5*c^2)+(0.5*c^2)*uppergamma(k/2,0.5*c^2)
@@ -41,7 +41,7 @@ l1_efficiency <- function(k) {
   return (((gamma((k+1)/2))^2)/((gamma(k/2)*gamma((k+2)/2))))
 }
 
-deriv <- function(c,k,m_estimator) {
+deriv <- function(c, k, m_estimator) {
   if (m_estimator == 'huber') {
     factor1 <- (k/2)*lowergamma(k/2,0.5*c^2)+c*(k-1)*(2^-1.5)*uppergamma((k-1)/2,0.5*c^2)
     factor2 <- lowergamma((k+2)/2,0.5*c^2)+(0.5*c^2)*uppergamma(k/2,0.5*c^2)
@@ -60,13 +60,13 @@ deriv <- function(c,k,m_estimator) {
   return (result)
 }
 
-nr <- function(c,k,m_estimator) { #Newton Raphson
+nr <- function(c, k, m_estimator) { #Newton Raphson
   old_c <- c+5
   new_c <- c
   count <- 0
   while (abs(new_c-old_c)>0.000001) {
     old_c <- new_c
-    new_c <- old_c-efficiency(old_c,k,m_estimator)/deriv(old_c,k,m_estimator)
+    new_c <- old_c-efficiency(old_c, k, m_estimator)/deriv(old_c, k, m_estimator)
     count <- count+1
     if (count > 1000) {
       return ('fail')
