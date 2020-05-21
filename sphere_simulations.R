@@ -1,4 +1,5 @@
 library(mvtnorm)
+library(zipfR)
 library(MASS)
 
 ## initializations
