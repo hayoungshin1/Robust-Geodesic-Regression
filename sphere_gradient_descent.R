@@ -194,7 +194,7 @@ alg <- function(p,v,x,y,m_estimator) {
   old_p <- integer(length(p))
   old_p[1] <- -1
   old_v <- matrix(0L,nrow=length(p),ncol=dim(x)[2])
-  old_v[embed,] <- 100
+  old_v[length(p),] <- 100
   count <- 0
   alt_count <- 0
   if ((m_estimator[[1]] == 'huber') | (m_estimator[[1]] == 'tukey')) { 
