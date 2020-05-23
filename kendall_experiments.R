@@ -10,7 +10,6 @@ embed <- boundary_points
 n <- 1
 estimator <- 'l2'
 #estimator <- 'l1'
-#estimator <- 'huber'
 #estimator <- 'tukey'
 
 # data
