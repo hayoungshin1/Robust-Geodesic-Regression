@@ -105,7 +105,7 @@ eps <- function(p, v, x, y) {
   answer <- matrix(, nrow = length(p), ncol=dim(y)[2])
   shifts <- v%*%t(x)
   for (i in 1:dim(y)[2]) {
-    answer[,i] <-loga(expo(p, shifts[, i]), y[, i])
+    answer[, i] <-loga(expo(p, shifts[, i]), y[, i])
   }
   return (answer)
 }
