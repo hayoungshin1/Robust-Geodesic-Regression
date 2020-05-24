@@ -269,7 +269,7 @@ alg <- function(p, v, x, y, m_estimator) {
       alt_count <- alt_count+1
     }
   }
-  result <- vector("list", length=5)
+  result <- vector("list", length = 2)
   result[[1]] <- current_p
   result[[2]] <- current_v
   return (result)
