@@ -199,7 +199,7 @@ alg <- function(p, v, x, y, m_estimator) {
   alt_count <- 0
   if ((m_estimator[[1]] == 'huber') | (m_estimator[[1]] == 'tukey')) { 
     xi <- (2*Pinv(dim/2, 0.5))^0.5
-    deviations <- vector(length=dim(y)[2])
+    deviations <- vector(length = dim(y)[2])
     current_shifts <- current_v%*%t(x)
     for (i in 1:dim(y)[2]) {
       deviations[i] <- dist(expo(current_p, current_shifts[, i]),y[, i])
