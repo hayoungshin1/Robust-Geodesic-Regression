@@ -179,7 +179,7 @@ grad_v <- function(p,v,x,y,m_estimator) {
     for (h in 1:dim(x)[2]) {
       for (i in 1:dim(y)[2]) {
         if (norm(res[, i]) != 0) {
-          sum[, h] <- sum[, h] - x[i, h]*rho_prime(norm(res[, i]),m_estimator)*pt(expo(p, shifts[, i]), p, (res[, i]/norm(res[, i])))
+          sum[, h] <- sum[, h] - x[i, h]*rho_prime(norm(res[, i]), m_estimator)*pt(expo(p, shifts[, i]), p, (res[, i]/norm(res[, i])))
         }
       }
     }
@@ -198,7 +198,7 @@ alg <- function(p, v, x, y, m_estimator) {
   count <- 0
   alt_count <- 0
   if ((m_estimator[[1]] == 'huber') | (m_estimator[[1]] == 'tukey')) { 
-    xi <- (2*Pinv(dim/2,0.5))^0.5
+    xi <- (2*Pinv(dim/2, 0.5))^0.5
     deviations <- vector(length=dim(y)[2])
     current_shifts <- current_v%*%t(x)
     for (i in 1:dim(y)[2]) {
@@ -258,7 +258,7 @@ alg <- function(p, v, x, y, m_estimator) {
       alt_count <- alt_count+1
     }
   }
-  result <- vector("list", length=5)
+  result <- vector("list", length = 2)
   result[[1]] <- current_p
   result[[2]] <- current_v
   return (result)
