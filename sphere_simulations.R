@@ -73,9 +73,9 @@ for (k in 2:max) {
     t_train_y <- t_train_y[,1:2^k]
     mixed_train_y <- mixed_train_y[,1:2^k]
     init_p <- k_mean(train_y)
-    init_v <- matrix(0L,nrow=embed,ncol=n)
     t_init_p <- k_mean(t_train_y)
     mixed_init_p <- k_mean(mixed_train_y)
+    init_v <- matrix(0L,nrow=embed,ncol=n)
     ans <- alg(init_p,init_v,train_x,train_y,estimator)
     t_ans <- alg(t_init_p,init_v,train_x,t_train_y,estimator)
     mixed_ans <- alg(mixed_init_p,init_v,train_x,mixed_train_y,estimator)
