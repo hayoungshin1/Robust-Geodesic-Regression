@@ -209,7 +209,7 @@ alg <- function(p, v, x, y, m_estimator) {
   count <- 0
   alt_count <- 0
   if ((m_estimator[[1]] == 'huber') | (m_estimator[[1]] == 'tukey')) { 
-    xi <- (2*Pinv(dim/2,0.5))^0.5
+    xi <- (2*Pinv(dim/2, 0.5))^0.5
     deviations <- vector(length = dim(y)[2])
     current_shifts <- current_v%*%t(x)
     for (i in 1:dim(y)[2]) {
@@ -217,9 +217,9 @@ alg <- function(p, v, x, y, m_estimator) {
     }
     mad <- median(deviations)
     if (m_estimator[[1]] == 'huber') {
-      c <- nr(2,(2*length(p)-4),m_estimator)
+      c <- nr(2, (2*length(p)-4), m_estimator)
     } else if (m_estimator[[1]] == 'tukey') {
-      c <- nr(15,(2*length(p)-4),m_estimator)
+      c <- nr(15, (2*length(p)-4), m_estimator)
     }
     sigma <- mad/xi
     cutoff <- c*sigma
@@ -237,7 +237,7 @@ alg <- function(p, v, x, y, m_estimator) {
   lambda <- min((1/norm(step_p)), 0.1)
   while ((count == 0) | ((count < 20000) & (alt_count < 100000) & ((dist(old_p, current_p) > 0.0000001) | (any(v_diffs > 0.0000001))))) {
     new_p <- expo(current_p, -lambda*step_p)
-    new_v <- matrix(, nrow=length(p), ncol=dim(x)[2])
+    new_v <- matrix(, nrow = length(p), ncol=dim(x)[2])
     for (h in 1:dim(x)[2]) {
       new_v[, h] <- pt(current_p, new_p, current_v[, h]-lambda*step_v[, h])
     }
