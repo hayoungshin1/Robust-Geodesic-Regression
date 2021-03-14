@@ -1,6 +1,6 @@
 # Robust-Geodesic-Regression
 
-Code for the numerical experiments in the paper 'Robust Geodesic Regression' by Ha-Young Shin and Hee-Seok Oh.
+Code for the numerical experiments in Section 4.1 of the paper 'Robust Geodesic Regression' by Ha-Young Shin and Hee-Seok Oh.
 
 sphere_gaussian_tangents.R
 
