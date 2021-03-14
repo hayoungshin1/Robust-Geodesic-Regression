@@ -1,5 +1,3 @@
-rm(list = ls())
-
 library(MASS)
 
 # used in the Newton-Raphson process in the inflection_point function
