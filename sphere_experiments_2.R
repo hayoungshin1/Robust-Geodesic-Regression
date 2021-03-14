@@ -1,5 +1,3 @@
-rm(list = ls())
-
 library(mvtnorm)
 library(MASS)
 library(GeodRegr)
