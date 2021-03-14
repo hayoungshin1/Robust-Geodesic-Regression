@@ -8,12 +8,12 @@ set.seed(23423)
 
 manifold <- 'sphere'
 
-dim <- 2
-#dim <- 3
+#dim <- 2
+dim <- 3
 embed <- dim+1
 L <- 1024
-n <- 1
-#n <- 2
+#n <- 1
+n <- 2
 max <- 8
 estimator <- 'l2'
 #estimator <- 'l1'
