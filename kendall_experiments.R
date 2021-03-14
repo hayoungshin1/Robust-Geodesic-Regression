@@ -1,8 +1,11 @@
 library(MASS)
 library(R.matlab)
 library(rmatio)
+library(GeodRegr)
 
 #initializations
+
+manifold <- 'kendall'
 
 boundary_points <- 50
 dim <- 2*boundary_points-4
@@ -14,8 +17,10 @@ estimator <- 'l2'
 
 # data
 
-ADF_x_data <- readMat('../downloads/ADNI_RMRSS/data/ADinfoF.mat')$ADinfoF
-ADF_y_data <- readMat('../downloads/ADNI_RMRSS/data/ADLdataF.mat')$ADLdataF
+ADF_x_data <- readMat('../downloads/ADNI_RMRSS/data/ADinfoF.mat')$ADinfoF # x data for women with Alzheimer's
+ADF_y_data <- readMat('../downloads/ADNI_RMRSS/data/ADLdataF.mat')$ADLdataF # y data for women with Alzheimer's
+
+# data pre-processing
 
 ages <- ADF_x_data[,9]
 
@@ -38,7 +43,5 @@ for (i in 1:length(ages)) { ## remove scaling
 #y_data[2,,(length(ages)-19):length(ages)] <- -y_data[2,,(length(ages)-19):length(ages)] ### tampered data
 
 y_data <- y_data[1,,]+y_data[2,,]*(0+1i)
-init_p <- k_mean(y_data)
-init_v <- t(t(integer(embed)))
 
-ans <- alg(init_p,init_v,x_data,y_data,estimator)
+ans <- geo_reg(manifold,x_data,y_data,estimator)
