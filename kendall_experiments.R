@@ -4,6 +4,8 @@ library(rmatio)
 
 #initializations
 
+manifold <- 'kendall'
+
 boundary_points <- 50
 dim <- 2*boundary_points-4
 embed <- boundary_points
@@ -38,7 +40,5 @@ for (i in 1:length(ages)) { ## remove scaling
 #y_data[2,,(length(ages)-19):length(ages)] <- -y_data[2,,(length(ages)-19):length(ages)] ### tampered data
 
 y_data <- y_data[1,,]+y_data[2,,]*(0+1i)
-init_p <- k_mean(y_data)
-init_v <- t(t(integer(embed)))
 
-ans <- alg(init_p,init_v,x_data,y_data,estimator)
+ans <- geo_reg(manifold,x_data,y_data,estimator)
