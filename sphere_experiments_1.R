@@ -4,6 +4,8 @@ library(mvtnorm)
 library(MASS)
 library(GeodRegr)
 
+# initializations
+
 set.seed(23423)
 
 manifold <- 'sphere'
