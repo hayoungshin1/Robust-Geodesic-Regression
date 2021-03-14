@@ -1,6 +1,7 @@
 library(MASS)
 library(R.matlab)
 library(rmatio)
+library(GeodRegr)
 
 #initializations
 
