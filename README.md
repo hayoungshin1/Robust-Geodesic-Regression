@@ -2,6 +2,16 @@
 
 Code for the numerical experiments in the paper 'Robust Geodesic Regression' by Ha-Young Shin and Hee-Seok Oh.
 
+sphere_gaussian_tangents.R
+
+sphere_experiments_1.R
+
+sphere_experiments_2.R
+
+kendall_experiments.R
+
+
+
 finding_c.R contains the code for the approximate AREs and their derivatives for the Huber and Tukey biweight estimators, used to find the tuning parameter c for 95% efficiency. Also included is the code for the ARE of the L_1 estimator.
 
 sphere_gradient_descent.R contains the code for performing the gradient descent algorithm to solve the geodesic regression problem on the k-sphere S^k, embedded in R(k+1). It includes the code for the exponential and logarithmic maps, parallel transport and Jacobi fields.
