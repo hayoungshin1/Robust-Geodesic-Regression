@@ -71,7 +71,7 @@ erfz <- function (z)
 G <- function(m, sigma_sq, R) {
   sum <- 0
   for (j in 0:m) {
-    sum <- sum + (factorial(m) / (factorial(j) * factorial(m - j))) * ((-1) ^ j) * exp(2 * j * (m - j) * sigma_sq) * erfz(R / ((2 * sigma_sq) ^ 0.5) - ((sigma_sq / 2) ^ 0.5) * (m - 2 * j))
+    sum <- sum + (factorial(m) / (factorial(j) * factorial(m - j))) * ((-1) ^ j) * exp((sigma_sq * (m - 2j)^2) / 2) * erfz(R / ((2 * sigma_sq) ^ 0.5) - ((sigma_sq / 2) ^ 0.5) * (m - 2 * j))
   }
   return(sum)
 }
