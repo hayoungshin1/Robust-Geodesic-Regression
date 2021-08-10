@@ -10,7 +10,7 @@ manifold <- 'kendall'
 boundary_points <- 50
 dim <- 2*boundary_points-4
 embed <- boundary_points
-n <- 1
+k <- 1
 estimator <- 'l2'
 #estimator <- 'l1'
 #estimator <- 'tukey'
