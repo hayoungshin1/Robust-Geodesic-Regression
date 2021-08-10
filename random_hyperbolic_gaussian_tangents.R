@@ -11,7 +11,7 @@ deriv_xtanhx <- function(x) {
 }
 
 # inflection point of H for dimension m given sigma_sq which will be in inv_func, found using the Newton-Raphson method
-inflection_point <- function(m, sigma_sq) {
+inflection_point_H <- function(m, sigma_sq) {
   old_x <- 1.199678640257733833916369849 + 5
   new_x <- 1.199678640257733833916369849 # inflection point of x tanh(x), is equal to the point where x tanh(x) = 1
   count <- 0
@@ -88,7 +88,7 @@ deriv_H <- function(m, sigma_sq, r) {
 
 # inverse of H at t, using the Newton-Raphson method with H and deriv_H
 inv_func_H <- function(m, sigma_sq, t) {
-  new_x <- inflection_point(m, sigma_sq) # use the inflection point of H as the starting point for the Newton-Raphson method
+  new_x <- inflection_point_H(m, sigma_sq) # use the inflection point of H as the starting point for the Newton-Raphson method
   old_x <- new_x + 5
   count <- 0
   while (any(abs(old_x - new_x) > 0.0000000001)) {
