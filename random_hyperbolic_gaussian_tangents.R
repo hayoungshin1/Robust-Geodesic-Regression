@@ -83,7 +83,7 @@ lim_H <- function(m, sigma_sq) {
 
 # derivative of H
 deriv_H <- function(m, sigma_sq, r) {
-  return (exp((-r^2) / (2 * sigma_sq)) * (sinh(r)^m) * (2^m) / ((2 / (pi * sigma_sq))^0.5))
+  return (exp((-r^2) / (2 * sigma_sq)) * (sinh(r)^m) * (2^m) * ((2 / (pi * sigma_sq))^0.5))
 }
 
 # inverse of H at t, using the Newton-Raphson method with H and deriv_H
