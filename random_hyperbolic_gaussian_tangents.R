@@ -105,7 +105,7 @@ inv_func_H <- function(m, sigma_sq, t) {
 # random generation of tangent vectors of n normally distributed points on S^k;
 # more precisely, tangent vectors are of the form Log(mu, y) in the tangent space at mu, 
 # which is isomorphic to R^k, when y has a Riemannian Gaussian distribution.
-random_sphere_hyperbolic_tangents <- function(n, k, sigma_sq) {
+random_hyperbolic_gaussian_tangents <- function(n, k, sigma_sq) {
   u <- runif(n, 0, 1)
   t <- u * (lim_H(k - 1, sigma_sq) - H(k - 1, sigma_sq, 0)) + H(k - 1, sigma_sq, 0)
   magnitude <- inv_func_H(k - 1, sigma_sq, t)
