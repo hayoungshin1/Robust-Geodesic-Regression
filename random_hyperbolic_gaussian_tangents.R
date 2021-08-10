@@ -12,12 +12,9 @@ deriv_xtanhx <- function(x) {
 
 # inflection point of H for dimension m given sigma_sq which will be in inv_func, found using the Newton-Raphson method
 inflection_point <- function(m, sigma_sq) {
-  old_x <- pi / 2 + 5
-  new_x <- pi / 2 - 0.1
+  old_x <- 1.199678640257733833916369849 + 5
+  new_x <- 1.199678640257733833916369849 # inflection point of x tanh(x), is equal to the point where x tanh(x) = 1
   count <- 0
-  while (xtanhx(new_x) < m * sigma_sq) {
-    new_x <- pi - (pi - new_x) / 10
-  }
   while (abs(old_x - new_x) > 0.000000001) {
     old_x <- new_x
     new_x <- old_x - (xtanhx(old_x) - m * sigma_sq) / deriv_xtanhx(old_x)
