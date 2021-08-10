@@ -68,7 +68,7 @@ erfz <- function (z)
 H <- function(m, sigma_sq, r) {
   sum <- 0
   for (j in 0:m) {
-    sum <- sum + (factorial(m) / (factorial(j) * factorial(m - j))) * ((-1) ^ j) * exp((sigma_sq * (m - 2j)^2) / 2) * erfz(r / ((2 * sigma_sq) ^ 0.5) - ((sigma_sq / 2) ^ 0.5) * (m - 2 * j))
+    sum <- sum + (factorial(m) / (factorial(j) * factorial(m - j))) * ((-1) ^ j) * exp((sigma_sq * (m - 2 * j)^2) / 2) * erfz(r / ((2 * sigma_sq) ^ 0.5) - ((sigma_sq / 2) ^ 0.5) * (m - 2 * j))
   }
   return(sum)
 }
@@ -76,7 +76,7 @@ H <- function(m, sigma_sq, r) {
 lim_H <- function(m, sigma_sq) {
   sum <- 0
   for (j in 0:m) {
-    sum <- sum + (factorial(m) / (factorial(j) * factorial(m - j))) * ((-1) ^ j) * exp((sigma_sq * (m - 2j)^2) / 2)
+    sum <- sum + (factorial(m) / (factorial(j) * factorial(m - j))) * ((-1) ^ j) * exp((sigma_sq * (m - 2 * j)^2) / 2)
   }
   return(sum)
 }
