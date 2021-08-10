@@ -68,18 +68,17 @@ erfz <- function (z)
 }
 
 # distribution function of r = d(y, mu) for dimension m given sigma_sq
-G <- function(m, sigma_sq, r) {
+G <- function(m, sigma_sq, R) {
   sum <- 0
   for (j in 0:m) {
-    sum <- sum + (factorial(m) / (factorial(j) * factorial(m - j))) * exp(2 * j * (m - j) * sigma_sq) * ((-1) ^ j) * erfz(r / ((2 * sigma_sq) ^ 0.5) - (m / 2 - j) * ((2 * sigma_sq) ^ 0.5))
+    sum <- sum + (factorial(m) / (factorial(j) * factorial(m - j))) * ((-1) ^ j) * exp(2 * j * (m - j) * sigma_sq) * erfz(R / ((2 * sigma_sq) ^ 0.5) - ((sigma_sq / 2) ^ 0.5) * (m - 2 * j))
   }
-  result <- ((1i) ^ m) * sum
-  return(Re(result))
+  return(sum)
 }
 
 # derivative of G
-deriv_G <- function(m, sigma_sq, r) {
-  return (exp((-r^2) / (2 * sigma_sq)) * (sin(r) ^ m) * (2 ^ (m + 1)) * exp((sigma_sq * m ^ 2) / 2) / ((2 * pi * sigma_sq) ^ 0.5))
+deriv_G <- function(m, sigma_sq, R) {
+  return (exp((-R^2) / (2 * sigma_sq)) * (sin(R) ^ m) * (2 ^ (m + 1)) * exp((sigma_sq * m ^ 2) / 2) / ((2 * pi * sigma_sq) ^ 0.5))
 }
 
 # inverse of G at t, using the Newton-Raphson method with G and deriv_G
