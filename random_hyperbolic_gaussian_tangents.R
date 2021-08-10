@@ -1,26 +1,26 @@
 library(MASS)
 
 # used in the Newton-Raphson process in the inflection_point function
-xtanx <- function(x) {
-  return(x * tan(x))
+xtanhx <- function(x) {
+  return(x * tanh(x))
 }
 
 # used in the Newton-Raphson process in the inflection_point function
-deriv_xtanx <- function(x) {
-  return (tan(x) + x / (cos(x)^ 2))
+deriv_xtanhx <- function(x) {
+  return (tanh(x) + x / (cosh(x)^ 2))
 }
 
-# inflection point of G for dimension m given sigma_sq which will be in inv_func, found using the Newton-Raphson method
+# inflection point of H for dimension m given sigma_sq which will be in inv_func, found using the Newton-Raphson method
 inflection_point <- function(m, sigma_sq) {
   old_x <- pi / 2 + 5
   new_x <- pi / 2 - 0.1
   count <- 0
-  while (xtanx(new_x) < m * sigma_sq) {
+  while (xtanhx(new_x) < m * sigma_sq) {
     new_x <- pi - (pi - new_x) / 10
   }
   while (abs(old_x - new_x) > 0.000000001) {
     old_x <- new_x
-    new_x <- old_x - (xtanx(old_x) - m * sigma_sq) / deriv_xtanx(old_x)
+    new_x <- old_x - (xtanhx(old_x) - m * sigma_sq) / deriv_xtanhx(old_x)
     count <- count + 1
     if (count > 1000) {
       return ('fail')
@@ -68,27 +68,35 @@ erfz <- function (z)
 }
 
 # distribution function of r = d(y, mu) for dimension m given sigma_sq
-G <- function(m, sigma_sq, R) {
+H <- function(m, sigma_sq, r) {
   sum <- 0
   for (j in 0:m) {
-    sum <- sum + (factorial(m) / (factorial(j) * factorial(m - j))) * ((-1) ^ j) * exp((sigma_sq * (m - 2j)^2) / 2) * erfz(R / ((2 * sigma_sq) ^ 0.5) - ((sigma_sq / 2) ^ 0.5) * (m - 2 * j))
+    sum <- sum + (factorial(m) / (factorial(j) * factorial(m - j))) * ((-1) ^ j) * exp((sigma_sq * (m - 2j)^2) / 2) * erfz(r / ((2 * sigma_sq) ^ 0.5) - ((sigma_sq / 2) ^ 0.5) * (m - 2 * j))
   }
   return(sum)
 }
 
-# derivative of G
-deriv_G <- function(m, sigma_sq, R) {
-  return (exp((-R^2) / (2 * sigma_sq)) * (sin(R) ^ m) * (2 ^ (m + 1)) * exp((sigma_sq * m ^ 2) / 2) / ((2 * pi * sigma_sq) ^ 0.5))
+lim_H <- function(m, sigma_sq) {
+  sum <- 0
+  for (j in 0:m) {
+    sum <- sum + (factorial(m) / (factorial(j) * factorial(m - j))) * ((-1) ^ j) * exp((sigma_sq * (m - 2j)^2) / 2)
+  }
+  return(sum)
 }
 
-# inverse of G at t, using the Newton-Raphson method with G and deriv_G
-inv_func <- function(m, sigma_sq, t) {
-  new_x <- inflection_point(m, sigma_sq) # use the inflection point of G as the starting point for the Newton-Raphson method
+# derivative of H
+deriv_H <- function(m, sigma_sq, r) {
+  return (exp((-r^2) / (2 * sigma_sq)) * (sinh(r) ^ m) * (2 ^ m) / (2 / (pi * sigma_sq) ^ 0.5))
+}
+
+# inverse of H at t, using the Newton-Raphson method with H and deriv_H
+inv_func_H <- function(m, sigma_sq, t) {
+  new_x <- inflection_point(m, sigma_sq) # use the inflection point of H as the starting point for the Newton-Raphson method
   old_x <- new_x + 5
   count <- 0
   while (any(abs(old_x - new_x) > 0.0000000001)) {
     old_x <- new_x
-    new_x <- old_x - (G(m, sigma_sq, old_x) - t) / deriv_G(m, sigma_sq, old_x)
+    new_x <- old_x - (H(m, sigma_sq, old_x) - t) / deriv_H(m, sigma_sq, old_x)
     count <- count + 1
     if (count > 1000) {
       return ('fail')
@@ -99,15 +107,15 @@ inv_func <- function(m, sigma_sq, t) {
 
 # random generation of tangent vectors of n normally distributed points on S^k;
 # more precisely, tangent vectors are of the form Log(mu, y) in the tangent space at mu, 
-# which is equivalent to R^k, when y has a Riemannian Gaussian distribution.
-random_sphere_gaussian_tangents <- function(n, k, sigma_sq) {
+# which is isomorphic to R^k, when y has a Riemannian Gaussian distribution.
+random_sphere_hyperbolic_tangents <- function(n, k, sigma_sq) {
   u <- runif(n, 0, 1)
-  t <- u * (G(k - 1, sigma_sq, pi) - G(k - 1, sigma_sq, 0)) + G(k - 1, sigma_sq, 0)
-  magnitude <- inv_func(k - 1, sigma_sq, t)
+  t <- u * (lim_H(k - 1, sigma_sq) - H(k - 1, sigma_sq, 0)) + H(k - 1, sigma_sq, 0)
+  magnitude <- inv_func_H(k - 1, sigma_sq, t)
   while (magnitude[1] == 'fail') {
     u <- runif(n, 0, 1)
-    t <- u * (G(k - 1, sigma_sq, pi) - G(k - 1, sigma_sq, 0)) + G(k - 1, sigma_sq, 0)
-    magnitude <- inv_func(k - 1, sigma_sq, t)
+    t <- u * (lim_H(k - 1, sigma_sq) - H(k - 1, sigma_sq, 0)) + H(k - 1, sigma_sq, 0)
+    magnitude <- inv_func_H(k - 1, sigma_sq, t)
   }
   direction <- matrix(mvrnorm(n = n, mu = integer(k), Sigma = diag(x = 10, nrow = k)), nrow = n)
   direction <- direction / (rowSums(direction ^ 2) ^ 0.5)
