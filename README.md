@@ -1,6 +1,6 @@
 # Robust-Geodesic-Regression
 
-Code for the numerical experiments in Section 4.1 of the paper 'Robust Geodesic Regression' by Ha-Young Shin and Hee-Seok Oh. The 'GeodRegr' package is required, as are 'MASS', 'mvtnorm', 'R.matlab' and 'rmatio'.
+Code for the numerical experiments in Section 4.1 of the paper 'Robust Geodesic Regression' by Ha-Young Shin and Hee-Seok Oh. The 'GeodRegr' package (https://github.com/hayoungshin1/GeodRegr) is required, as are 'MASS', 'mvtnorm', 'R.matlab' and 'rmatio'.
 
 simulation_experiments_1.R contains the code for the simulation experiments on the sphere S^n and hyperbolic space \mathbb{H}^n for type N, T and C errors. The output is the MSEs for p and v^j. Under initializations, the dimension, the number of independent variables k and the type of M-type estimator can be changed.
 
