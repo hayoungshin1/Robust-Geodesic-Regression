@@ -41,7 +41,6 @@ options(warn = -1)
 p_variance <- vector(length = length(sigmas))
 
 for (number in 1:length(sigmas)) {
-  warn <- 0 #
   all_p <- matrix(, nrow = embed, ncol = L)
   for (j in 1:L) {
     train_y <- matrix(, nrow = embed, ncol = 2 ^ n)
