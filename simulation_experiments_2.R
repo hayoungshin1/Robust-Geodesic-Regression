@@ -13,8 +13,6 @@ manifold <- 'sphere'
 dim <- 3
 embed <- dim + 1
 L <- 1024
-# k <- 1
-k <- 2
 # estimator <- 'l2'
 # estimator <- 'l1'
 # estimator <- 'huber'
